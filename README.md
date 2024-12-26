@@ -27,7 +27,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 
 <div align="center">
 
-<img src="assets/demo2.gif" width="600" alt="demo">
+<img src="assets/demo2.gif" width="800" alt="demo">
 
 </div>
 
