@@ -34,7 +34,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 ## 📣 News
 
 - **[26/Dec/2024]** Release the code and checkpoint.
-- **[25/Dec/2024]** Paper is released.
+- **[25/Dec/2024]** [Paper](assets/MINIMA-arxiv-submitted.pdf) is released.
 
 ## Abstract
 
