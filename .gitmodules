@@ -1,0 +1,12 @@
+[submodule "third_party/LightGlue"]
+	path = third_party/LightGlue
+	url = https://github.com/cvg/LightGlue.git
+[submodule "third_party/LoFTR"]
+	path = third_party/LoFTR
+	url = https://github.com/zju3dv/LoFTR.git
+[submodule "third_party/RoMa"]
+	path = third_party/RoMa
+	url = https://github.com/Parskatt/RoMa.git
+[submodule "third_party/XoFTR"]
+	path = third_party/XoFTR
+	url = https://github.com/OnderT/XoFTR.git

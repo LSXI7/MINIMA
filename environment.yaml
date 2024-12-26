@@ -1,0 +1,16 @@
+name: minima
+channels:
+  # - https://dx-mirrors.sensetime.com/anaconda/cloud/pytorch
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pytorch=2.0.1
+  - torchvision=0.15.2
+  - torchaudio=2.0.2
+  - pytorch-cuda=11.7
+  - pip
+  - pip:
+      - -r requirements.txt

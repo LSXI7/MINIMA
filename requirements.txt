@@ -1,0 +1,20 @@
+numpy==1.23.1
+opencv_python==4.5.1.48
+# albumentations==0.5.1 --no-binary=imgaug,albumentations
+# ray>=1.0.1
+einops==0.3.0
+kornia==0.6.11
+loguru==0.5.3
+yacs>=0.1.8
+tqdm==4.65.0
+# autopep8
+# pylint
+# ipython
+jupyterlab
+matplotlib==3.7.5
+# h5py==3.1.0
+pytorch-lightning==1.3.5
+scipy==1.10.1
+# torchmetrics==0.6.0  # version problem: https://github.com/NVIDIA/DeepLearningExamples/issues/1113#issuecomment-1102969461
+joblib>=1.0.1
+# wandb
