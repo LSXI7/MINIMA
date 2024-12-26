@@ -18,7 +18,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 
 <div align="center">
 
-<a href="https://arxiv.org/abs/0.0"><img src="https://img.shields.io/badge/arXiv-PDF-b31b1b" alt='arxiv'></a>
+<a href="https://github.com/LSXI7/MINIMA/blob/main/assets/MINIMA-arxiv-submitted.pdf"><img src="https://img.shields.io/badge/arXiv-PDF-b31b1b" alt='arxiv'></a>
 <a href="https://huggingface.co/spaces/lsxi77777/MINIMA"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Space-F0CD4B?labelColor=666EEE" alt='HuggingFace Space'></a>
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache--2.0-929292" alt='license'></a>
 <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA"><img src="https://img.shields.io/badge/OpenXLab-MINIMA-blue" alt='data'></a>
