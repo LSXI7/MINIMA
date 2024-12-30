@@ -18,7 +18,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 
 <div align="center">
 
-<a href="https://github.com/LSXI7/MINIMA/blob/main/assets/MINIMA-arxiv-submitted.pdf"><img src="https://img.shields.io/badge/arXiv-PDF-b31b1b" alt='arxiv'></a>
+<a href="https://arxiv.org/abs/2412.19412"><img src="https://img.shields.io/badge/arXiv-2412.19412-b31b1b" alt='arxiv'></a>
 <a href="https://huggingface.co/spaces/lsxi77777/MINIMA"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Space-F0CD4B?labelColor=666EEE" alt='HuggingFace Space'></a>
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache--2.0-929292" alt='license'></a>
 <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA"><img src="https://img.shields.io/badge/OpenXLab-MINIMA-blue" alt='data'></a>
@@ -33,31 +33,29 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 
 ## 📣 News
 
+- **[27/Dec/2024]** [Arvix version](https://arxiv.org/abs/2412.19412) is released.
 - **[26/Dec/2024]** Release the code and checkpoint.
-- **[25/Dec/2024]** [Paper](assets/MINIMA-arxiv-submitted.pdf) is released.
 
 ## Abstract
 
-Image matching for both cross-view and cross-modality plays a critical role in multimodal perception. Due to the
-modality gap caused by different imaging systems/styles, the matching task poses great challenges. Existing works try to
-extract invariant features for specific modalities and train on limited datasets, showing poor generalization. To this
-end, we present MINIMA, a unified image matching framework for multiple cross-modal cases. Without pursuing fancy
+Image matching for both cross-view and cross-modality plays a critical role in multimodal perception. In practice, the
+modality gap caused by different imaging systems/styles poses great challenges to the matching task. Existing works try
+to extract invariant features for specific modalities and train on limited datasets, showing poor generalization. In
+this paper, we present MINIMA, a unified image matching framework for multiple cross-modal cases. Without pursuing fancy
 modules, our MINIMA aims to enhance universal performance from the perspective of data scaling up. For such purpose, we
 propose a simple yet effective data engine that can freely produce a large dataset containing multiple modalities, rich
 scenarios, and accurate matching labels. Specifically, we scale up the modalities from cheap but rich RGB-only matching
-data, by means of generative models. With this setting, the matching labels and rich diversity of the RGB dataset are
+data, by means of generative models. Under this setting, the matching labels and rich diversity of the RGB dataset are
 well inherited by the generated multimodal data. Benefiting from this, we construct MD-syn, a new comprehensive dataset
 that fills the data gap for general multimodal image matching. With MD-syn, we can directly train any advanced matching
 pipeline on randomly selected modality pairs to obtain cross-modal ability. Extensive experiments on in-domain and
-zero-shot matching tasks including 19 cross-modal cases demonstrate that our MINIMA can achieve large enhancement
-compared with the baselines, and even outperforms those modality-specifically designed methods.
+zero-shot matching tasks, including 19 cross-modal cases, demonstrate that our MINIMA can significantly outperform the
+baselines and even surpass modality-specific methods.
 
 <p align="center">
   <img src="assets/figs1.jpg" alt="Figure 1" height="260"> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="assets/figs2.png" alt="Figure 2" height="260">
 </p>
-
-
 
 ## Our Framework
 
@@ -255,7 +253,7 @@ python test_relative_pose_mega_1500_syn.py --method <method> <--ckpt ckpt> --mul
 ```
 
 Note: By default, the checkpoint is initialized from the MINIMA models in the `weights` folder, and you can specify a
-  custom checkpoint using the `--ckpt` argument.
+custom checkpoint using the `--ckpt` argument.
 
 ## TODO List
 
@@ -287,10 +285,10 @@ Additionally, we appreciate the support of [MegaDepth](https://www.cs.cornell.ed
 If you find our work useful in your research, please consider giving a star ⭐ and a citation
 
 ```bibtex
-@article{Jiang2024minima,
+@article{jiang2024minima,
   title={MINIMA: Modality Invariant Image Matching},
   author={Jiang, Xingyu and Ren, Jiangwei and Li, Zizhuo and Zhou, Xin and Liang, Dingkang and Bai, Xiang},
-  journal={arXiv preprint},
+  journal={arXiv preprint arXiv:2412.19412},
   year={2024},
 }
 ```
