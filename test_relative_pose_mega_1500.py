@@ -1,14 +1,13 @@
 import argparse
 import json
 import logging
+import numpy as np
 import os
 import os.path as osp
 import time
 import warnings
 from collections import defaultdict, OrderedDict
 from pathlib import Path
-
-import numpy as np
 from tqdm import tqdm
 
 from src.utils.load_model import load_model
@@ -17,7 +16,7 @@ from src.utils.metrics import estimate_pose, relative_pose_error, error_auc, sym
 from src.utils.plotting import dynamic_alpha, error_colormap, make_matching_figure
 
 
-def load_vis_syn_pairs_npz(npz_root, npz_list, data_root, multi_model='infrared'):
+def load_vis_pairs_npz(npz_root, npz_list, data_root):
     """Load information for scene and image pairs from npz files.
     Args:
         npz_root: Directory path for npz files
@@ -29,42 +28,20 @@ def load_vis_syn_pairs_npz(npz_root, npz_list, data_root, multi_model='infrared'
 
     total_pairs = 0
     scene_pairs = {}
-    infrared_root = './data/megadepth/train/infrared/'
-    depth_root = './data/megadepth/train/depth/'
-    normal_root = './data/megadepth/train/normal/'
-    sketch_root = './data/megadepth/train/sketch/'
-    paint_root = './data/megadepth/train/paint/'
-    event_root = "./data/megadepth/train/event/"
-    if multi_model == 'infrared':
-        muti_root = infrared_root
-    elif multi_model == 'depth':
-        muti_root = depth_root
-    elif multi_model == 'normal':
-        muti_root = normal_root
-    elif multi_model == 'sketch':
-        muti_root = sketch_root
-    elif multi_model == 'paint':
-        muti_root = paint_root
-    elif multi_model == 'event':
-        muti_root = event_root
-    else:
-        raise ValueError(f"Unknown model: {multi_model}")
-
+    pairs = []
     for name in npz_names:
         print(f"Loading {name}")
 
         scene_info = np.load(f"{npz_root}/{name}.npz", allow_pickle=True)
-        pairs = []
+
         # Collect pairs
         for pair_info in scene_info['pair_infos']:
             total_pairs += 1
             (id0, id1), overlap_score, central_matches = pair_info
             im0 = scene_info['image_paths'][id0]
             im0_original = os.path.join(data_root, im0)
-            im0_multi = os.path.join(muti_root, im0).replace('jpg', 'png')
             im1 = scene_info['image_paths'][id1]
             im1_original = os.path.join(data_root, im1)
-            im1_multi = os.path.join(muti_root, im1).replace('jpg', 'png')
             K0 = scene_info['intrinsics'][id0].astype(np.float32)
             K1 = scene_info['intrinsics'][id1].astype(np.float32)
 
@@ -78,12 +55,10 @@ def load_vis_syn_pairs_npz(npz_root, npz_list, data_root, multi_model='infrared'
             T1 = scene_info['poses'][id1]
             T_0to1 = np.matmul(T1, np.linalg.inv(T0))
             T_1to0 = np.linalg.inv(T_0to1)
-            pairs.append({'im0': im0_original, 'im1': im1_multi, 'dist0': dist0, 'dist1': dist1,
-                          'K0': K0, 'K1': K1, 'T_0to1': T_0to1})
-            pairs.append({'im0': im0_multi, 'im1': im1_original, 'dist0': dist0, 'dist1': dist1,
+            pairs.append({'im0': im0_original, 'im1': im1_original, 'dist0': dist0, 'dist1': dist1,
                           'K0': K0, 'K1': K1, 'T_0to1': T_0to1})
 
-        scene_pairs[name] = pairs
+    scene_pairs['megadepth'] = pairs
 
     print(f"Loaded {total_pairs} pairs.")
     return scene_pairs
@@ -172,10 +147,10 @@ def aggregiate_scenes(scene_pose_auc, thresholds):
     """
     temp_pose_auc = {}
     for npz_name in scene_pose_auc.keys():
-        scene_name = 'synthetic'
+        scene_name = 'megadepth'
         temp_pose_auc[scene_name] = [np.zeros(len(thresholds), dtype=np.float32), 0]  # [sum, total_number]
     for npz_name in scene_pose_auc.keys():
-        scene_name = 'synthetic'
+        scene_name = 'megadepth'
         temp_pose_auc[scene_name][0] += scene_pose_auc[npz_name]
         temp_pose_auc[scene_name][1] += 1
 
@@ -232,7 +207,7 @@ def eval_relapose(
         np.set_printoptions(precision=2)
 
         # Eval on pairs
-        logging.info(f"\nStart evaluation on VisSyn \n")
+        logging.info(f"\nStart evaluation on Megadepth 1500 \n")
         for i, pair in tqdm(enumerate(pairs), smoothing=.1, total=len(pairs)):
             if debug and i > 10:
                 break
@@ -279,11 +254,9 @@ def eval_relapose(
                 if print_out:
                     logging.info(f"#M={len(matches)} R={R_err:.3f}, t={t_err:.3f}")
 
-            multi_model = f'{args.multi_model}'
-
             if save_figs:
-                img0_name = f"{f'{multi_model}' if multi_model in pair['im0'] else 'vis'}_{osp.basename(pair['im0']).split('.')[0]}"
-                img1_name = f"{f'{multi_model}' if multi_model in pair['im1'] else 'vis'}_{osp.basename(pair['im1']).split('.')[0]}"
+                img0_name = f"fig1_{osp.basename(pair['im0']).split('.')[0]}"
+                img1_name = f"fig2_{osp.basename(pair['im1']).split('.')[0]}"
                 fig_path = osp.join(scene_dir, f"{img0_name}_{img1_name}_after_ransac.jpg")
                 save_matching_figure(path=fig_path,
                                      img0=match_res['img0_undistorted'] if 'img0_undistorted' in match_res.keys() else
@@ -341,10 +314,10 @@ def eval_relapose(
     return scene_pose_auc, agg_pose_auc, precs, precs_no_inlier, agg_precs, agg_precs_no_inlier
 
 
-def test_relative_pose_vissyn(
+def test_relative_pose_vis(
         data_root_dir,
         method="xoftr",
-        exp_name="VisSYN",
+        exp_name="megadepth",
         ransac_thres=1.5,
         print_out=False,
         save_dir=None,
@@ -396,11 +369,11 @@ def test_relative_pose_vissyn(
     data_root = data_root_dir
 
     # Load pairs
-    scene_pairs = load_vis_syn_pairs_npz(npz_root, npz_list, data_root, args.multi_model)
+    scene_pairs = load_vis_pairs_npz(npz_root, npz_list, data_root)
 
     # Load method
     # matcher = eval(f"load_{method}")(args)
-    matcher = load_model(method, args)
+    matcher = load_model(method, args, test_orginal_megadepth=True)
     thresholds = [5, 10, 20]
     # Eval
     scene_pose_auc, agg_pose_auc, precs, precs_no_inlier, agg_precs, agg_precs_no_inlier = eval_relapose(
@@ -444,16 +417,14 @@ def test_relative_pose_vissyn(
 
 if __name__ == '__main__':
     def add_common_arguments(parser):
-        parser.add_argument('--exp_name', type=str, default="VisSYN")
-        parser.add_argument('--data_root_dir', type=str, default="./data/METU_VisSYN/")
-        parser.add_argument('--save_dir', type=str, default="./results_relative_pose_1500_syn/")
+        parser.add_argument('--exp_name', type=str, default="MegaDepth")
+        parser.add_argument('--data_root_dir', type=str, default="./data/megadepth/")
+        parser.add_argument('--save_dir', type=str, default="./results_relative_pose_megadepth/")
         parser.add_argument('--e_name', type=str, default=None)
         parser.add_argument('--ransac_thres', type=float, default=0.5)
         parser.add_argument('--print_out', action='store_true')
         parser.add_argument('--debug', action='store_true')
         parser.add_argument('--save_figs', action='store_true')
-        parser.add_argument('--multi_model', type=str, default='infrared',
-                            choices=['infrared', 'depth', 'normal', 'sketch', 'paint', 'event'])
 
 
     def add_method_arguments(parser, method):
@@ -502,7 +473,7 @@ if __name__ == '__main__':
     tt = time.time()
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        test_relative_pose_vissyn(
+        test_relative_pose_vis(
             Path(args.data_root_dir),
             args.method,
             args.exp_name,

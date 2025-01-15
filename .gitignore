@@ -6,3 +6,5 @@
 src/utils/else_module
 !assets/framework.png
 !assets/figs2.png
+!demo/depth_test.png
+!demo/vis_test.png

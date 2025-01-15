@@ -95,7 +95,7 @@ openxlab dataset download --dataset-repo lsxi7/MINIMA --source-path /README.md -
 And more details can be found
 in <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA/cli/main"><img src="https://img.shields.io/badge/OpenXLab-Download-blue" alt='data'></a>.
 
-## ️Weights Download
+## Weight Download
 
 * We provide our `minima_lightglue`,`minima_loftr` and `minima_roma` model weight
   in [Google Drive](https://drive.google.com/drive/folders/16kZfehtXeIu6fJjUoYDzYb-3FkZBpkNd?usp=sharing).
@@ -195,11 +195,11 @@ data/
 ├── Multi-modality-image-matching-database-metrics-methods/
 │ ├── Multimodal_Image_Matching_Datasets/
 │ └── ...
-├── megadepth
+├── megadepth/
 │ └── train/[modality]/Undistorted_SfM/
-└── DIODE
+└── DIODE/
 │ └── val/
-└── DSEC
+└── DSEC/
   ├── vent_list.txt
   ├── thun_01_a/
   └── ...
@@ -227,6 +227,12 @@ git submodule update --recursive --remote
 sed -i '1s/^/from typing import Tuple as tuple\n/' third_party/RoMa/romatch/models/model_zoo/__init__.py
 ```
 
+* Run demo code after downloading the [weights](#weight-download):
+
+```bash
+python demo.py --method sp_lg --fig1 demo/vis_test.png --fig2 demo/depth_test.png --save_dir ./demo
+```
+
 # Multimodal Image Matching Evaluation
 
 We provide the multi-modality image matching benchmark commands for our MINIMA models.
@@ -242,14 +248,19 @@ python test_relative_homo_depth.py    --method <method> <--ckpt model_path> <--s
 python test_relative_homo_event.py    --method <method> <--ckpt model_path> <--save_figs> <--save_dir save_dir>  # Event-RGB
 
 # choose_model: 0 for medical test, 1 for remote sensing test
-python test_relative_homo_mmim.py     --method <method> <--ckpt model_path> --choose_model 0/1 <--save_figs> <--save_dir save_dir
+python test_relative_homo_mmim.py     --method <method> <--ckpt model_path> --choose_model 0/1 <--save_figs> <--save_dir save_dir>
 ```
 
 ### Test on MD-syn Dataset
 
 ```bash
-python test_relative_pose_mega_1500_syn.py --method <method> <--ckpt ckpt> --multi_model <modality> <--save_figs> <--save_dir save_dir>
-# modality: infrared/depth/event/normal/sketch/paint
+python test_relative_pose_mega_1500_syn.py  --method <method> <--ckpt ckpt> --multi_model <modality> <--save_figs> <--save_dir save_dir>
+```
+
+### Test on Origin MegaDepth-1500 Dataset
+
+```bash
+python test_relative_pose_mega_1500.py  --method <method> <--ckpt model_path> <--save_figs> <--save_dir save_dir>
 ```
 
 Note: By default, the checkpoint is initialized from the MINIMA models in the `weights` folder, and you can specify a

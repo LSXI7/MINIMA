@@ -1,17 +1,18 @@
 import logging
 import os
+import torch
 from copy import deepcopy
 
-import torch
 
-
-def load_roma(args):
+def load_roma(args, test_orginal_megadepth=False):
     import sys
     sys.path.append("./third_party/RoMa/")
     from third_party.RoMa.romatch import roma_outdoor
     from third_party.RoMa.romatch import tiny_roma_v1_outdoor
-
-    from src.config.default import get_cfg_defaults
+    if test_orginal_megadepth:
+        from src.config.default_for_megadepth_dense import get_cfg_defaults
+    else:
+        from src.config.default import get_cfg_defaults
     from src.utils.data_io_roma import DataIOWrapper, lower_config
     config = get_cfg_defaults(inference=True)
     config = lower_config(config)
@@ -33,9 +34,12 @@ def load_roma(args):
     return matcher
 
 
-def load_loftr(args):
+def load_loftr(args, test_orginal_megadepth=False):
     from third_party.LoFTR.src.loftr import LoFTR, default_cfg
-    from src.config.default import get_cfg_defaults
+    if test_orginal_megadepth:
+        from src.config.default_for_megadepth_dense import get_cfg_defaults
+    else:
+        from src.config.default import get_cfg_defaults
     from src.utils.data_io_loftr import DataIOWrapper, lower_config
     config = get_cfg_defaults(inference=True)
     config = lower_config(config)
@@ -57,10 +61,13 @@ def load_loftr(args):
     return matcher
 
 
-def load_sp_lg(args):
+def load_sp_lg(args, test_orginal_megadepth=False):
     from third_party.LightGlue.lightglue import LightGlue, SuperPoint
     from third_party.LightGlue.lightglue.utils import rbd
-    from src.config.default import get_cfg_defaults
+    if test_orginal_megadepth:
+        from src.config.default_for_megadepth_sparse import get_cfg_defaults
+    else:
+        from src.config.default import get_cfg_defaults
     from src.utils.data_io_sp_lg import DataIOWrapper, lower_config
 
     class Matching(torch.nn.Module):
@@ -86,8 +93,12 @@ def load_sp_lg(args):
             image0 = batch['image0']
             image1 = batch['image1']
             # extract local features
-            feats0 = self.extractor.extract(image0)  # auto-resize the image, disable with resize=None
-            feats1 = self.extractor.extract(image1)
+            if test_orginal_megadepth:
+                feats0 = self.extractor.extract(image0, resize=None)  # auto-resize the image, disable with resize=None
+                feats1 = self.extractor.extract(image1, resize=None)
+            else:
+                feats0 = self.extractor.extract(image0)  # auto-resize the image, disable with resize=None
+                feats1 = self.extractor.extract(image1)
 
             # match the features
             matches01 = self.matcher({'image0': feats0, 'image1': feats1})
@@ -144,10 +155,10 @@ def load_xoftr(args):
     return matcher
 
 
-def load_model(method, args, use_path=True):
+def load_model(method, args, use_path=True, test_orginal_megadepth=False):
     if use_path:
-        matcher = eval(f"load_{method}")(args)
+        matcher = eval(f"load_{method}")(args, test_orginal_megadepth=test_orginal_megadepth)
         return matcher.from_paths
     else:
-        matcher = eval(f"load_{method}")(args)
+        matcher = eval(f"load_{method}")(args, test_orginal_megadepth=test_orginal_megadepth)
         return matcher.from_cv_imgs
