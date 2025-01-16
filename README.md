@@ -255,6 +255,7 @@ python test_relative_homo_mmim.py     --method <method> <--ckpt model_path> --ch
 
 ```bash
 python test_relative_pose_mega_1500_syn.py  --method <method> <--ckpt ckpt> --multi_model <modality> <--save_figs> <--save_dir save_dir>
+# modality: infrared/depth/event/normal/sketch/paint
 ```
 
 ### Test on Origin MegaDepth-1500 Dataset
