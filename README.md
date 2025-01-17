@@ -70,6 +70,7 @@ baselines and even surpass modality-specific methods.
 * Visit our demo
   <a href="https://huggingface.co/spaces/lsxi77777/MINIMA"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Space-F0CD4B?labelColor=666EEE" alt='HuggingFace Space'></a>,
   and test our MINIMA models.
+* Special thanks to [Hugging Face](https://huggingface.co/) for providing the ZeroGPU support for this project!
 
 ## Full MegaDepth-Syn Dataset
 
