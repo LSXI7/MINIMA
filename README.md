@@ -98,12 +98,14 @@ in <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA/cli/main"><img src="ht
 
 ## Weight Download
 
-* We provide our `minima_lightglue`,`minima_loftr` and `minima_roma` model weight
+* We provide our `minima_lightglue`,`minima_loftr`,`minima_roma`,`minima_eloftr` and `minima_xoftr` model weights
   in [Google Drive](https://drive.google.com/drive/folders/16kZfehtXeIu6fJjUoYDzYb-3FkZBpkNd?usp=sharing).
 * Also we provide github link for the
   weights: [minima_lightglue](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_lightglue.pth),
-  [minima_loftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_loftr.ckpt)
-  and [minima_roma](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_roma.pth).
+  [minima_loftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_loftr.ckpt), 
+  [minima_roma](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_roma.pth), 
+  [minima_eloftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_eloftr.ckpt) and 
+  [minima_xoftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_xoftr.ckpt).
 * Please download the weight files and put it in the `weights` folder.
 * Or you can directly run:
 
