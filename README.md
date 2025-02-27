@@ -303,7 +303,7 @@ If you find our work useful in your research, please consider giving a star ⭐ 
 @inproceedings{jiang2025minima,
   title={MINIMA: Modality Invariant Image Matching},
   author={Jiang, Xingyu and Ren, Jiangwei and Li, Zizhuo and Zhou, Xin and Liang, Dingkang and Bai, Xiang},
-  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
   year={2025}
 }
 ```
