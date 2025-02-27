@@ -32,7 +32,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 </div>
 
 ## 📣 News
-
+- **[27/Feb/2025]**  Our MINIMA is accepted to CVPR 2025.
 - **[27/Dec/2024]** [Arvix version](https://arxiv.org/abs/2412.19412) is released.
 - **[26/Dec/2024]** Release the code and checkpoint.
 
@@ -300,10 +300,10 @@ Additionally, we appreciate the support of [MegaDepth](https://www.cs.cornell.ed
 If you find our work useful in your research, please consider giving a star ⭐ and a citation
 
 ```bibtex
-@article{jiang2024minima,
+@inproceedings{jiang2025minima,
   title={MINIMA: Modality Invariant Image Matching},
   author={Jiang, Xingyu and Ren, Jiangwei and Li, Zizhuo and Zhou, Xin and Liang, Dingkang and Bai, Xiang},
-  journal={arXiv preprint arXiv:2412.19412},
-  year={2024},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  year={2025}
 }
 ```
