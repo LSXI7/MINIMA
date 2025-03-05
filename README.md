@@ -56,6 +56,10 @@ baselines and even surpass modality-specific methods.
   <img src="assets/figs1.jpg" alt="Figure 1" height="260"> &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="assets/figs2.png" alt="Figure 2" height="260">
 </p>
+<p align="center">
+  <img src="assets/modality.png" alt="Figure 3" height="430">
+  
+</p>
 
 ## Our Framework
 
