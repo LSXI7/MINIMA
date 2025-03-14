@@ -1,0 +1,129 @@
+NAME: EDIT
+IS_DEFAULT: False
+DEFAULT_PARAS:
+  PARAS:
+    RESOLUTIONS: [[512, 512], [1024, 1024]]
+  INPUT:
+    IMAGE:
+    PROMPT: ""
+    NEGATIVE_PROMPT: ""
+    TARGET_SIZE_AS_TUPLE: [1024, 1024]
+    PROMPT_PREFIX: ""
+    SAMPLE: ddim
+    SAMPLE_STEPS: 50
+    GUIDE_SCALE:
+      text: 7.5
+      image: 1.5
+    GUIDE_RESCALE: 0.5
+    DISCRETIZATION: trailing
+  OUTPUT:
+    LATENT:
+    IMAGES:
+    SEED:
+  MODULES_PARAS:
+    FIRST_STAGE_MODEL:
+      FUNCTION:
+        -
+          NAME: encode
+          DTYPE: float16
+          INPUT: ["IMAGE"]
+        -
+          NAME: decode
+          DTYPE: float16
+          INPUT: ["LATENT"]
+      PARAS:
+        # SCALE_FACTOR DESCRIPTION: The vae embeding scale. TYPE: float default: 0.18215
+        SCALE_FACTOR: 0.18215
+        SIZE_FACTOR: 8
+    DIFFUSION_MODEL:
+      FUNCTION:
+        -
+          NAME: forward
+          DTYPE: float16
+          INPUT: ["SAMPLE_STEPS", "SAMPLE", "GUIDE_SCALE", "GUIDE_RESCALE", "DISCRETIZATION"]
+    COND_STAGE_MODEL:
+      FUNCTION:
+        -
+          NAME: encode_text
+          DTYPE: float16
+          INPUT: ["PROMPT", "NEGATIVE_PROMPT"]
+
+MODEL:
+  PRETRAINED_MODEL: "weights/stylebooth/stylebooth-tb-5000-0.bin"
+  SCHEDULE:
+    PARAMETERIZATION: "eps"
+    TIMESTEPS: 1000
+    ZERO_TERMINAL_SNR: False
+    SCHEDULE_ARGS:
+      # NAME DESCRIPTION:  TYPE:  default: ''
+      NAME: "scaled_linear"
+      BETA_MIN: 0.00085
+      BETA_MAX: 0.0120
+  #
+  DIFFUSION_MODEL:
+    NAME: DiffusionUNet
+    PRETRAINED_PATH:
+    IN_CHANNELS: 8
+    OUT_CHANNELS: 4
+    MODEL_CHANNELS: 320
+    NUM_HEADS: 8
+    NUM_RES_BLOCKS: 2
+    ATTENTION_RESOLUTIONS: [ 4, 2, 1 ]
+    CHANNEL_MULT: [ 1, 2, 4, 4 ]
+    CONV_RESAMPLE: True
+    DIMS: 2
+    USE_CHECKPOINT: False
+    USE_SCALE_SHIFT_NORM: False
+    RESBLOCK_UPDOWN: False
+    USE_SPATIAL_TRANSFORMER: True
+    TRANSFORMER_DEPTH: 1
+    CONTEXT_DIM: 768
+    DISABLE_MIDDLE_SELF_ATTN: False
+    USE_LINEAR_IN_TRANSFORMER: False
+    IGNORE_KEYS: []
+  #
+  FIRST_STAGE_MODEL:
+    NAME: AutoencoderKL
+    EMBED_DIM: 4
+    IGNORE_KEYS: []
+    BATCH_SIZE: 4
+    #
+    ENCODER:
+      NAME: Encoder
+      CH: 128
+      OUT_CH: 3
+      NUM_RES_BLOCKS: 2
+      IN_CHANNELS: 3
+      ATTN_RESOLUTIONS: [ ]
+      CH_MULT: [ 1, 2, 4, 4 ]
+      Z_CHANNELS: 4
+      DOUBLE_Z: True
+      DROPOUT: 0.0
+      RESAMP_WITH_CONV: True
+    #
+    DECODER:
+      NAME: Decoder
+      CH: 128
+      OUT_CH: 3
+      NUM_RES_BLOCKS: 2
+      IN_CHANNELS: 3
+      ATTN_RESOLUTIONS: [ ]
+      CH_MULT: [ 1, 2, 4, 4 ]
+      Z_CHANNELS: 4
+      DROPOUT: 0.0
+      RESAMP_WITH_CONV: True
+      GIVE_PRE_END: False
+      TANH_OUT: False
+  #
+  TOKENIZER:
+    NAME: ClipTokenizer
+    PRETRAINED_PATH: "weights/clip-vit-large-patch14/"
+    LENGTH: 77
+    CLEAN: True
+  #
+  COND_STAGE_MODEL:
+    NAME: FrozenCLIPEmbedder
+    FREEZE: True
+    USE_GRAD: False
+    LAYER: last
+    PRETRAINED_MODEL: "weights/clip-vit-large-patch14/"

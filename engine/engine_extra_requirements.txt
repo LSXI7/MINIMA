@@ -1,0 +1,10 @@
+oss2==2.15.0
+open_clip_torch==2.24.0
+transformers==4.40.2
+gradio==3.47.1
+peft==0.10.0
+ms-swift==2.0.1
+xformers==0.0.21
+geffnet==1.0.2
+huggingface-hub==0.29.3
+gdown

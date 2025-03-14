@@ -32,7 +32,9 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 </div>
 
 ## 📣 News
-- **[27/Feb/2025]**  Our MINIMA is accepted to CVPR 2025.
+
+- **[14/Mar/2025]** [MINIMA Data Engine](./engine/README.md) is released.
+- **[27/Feb/2025]** Our MINIMA is accepted to CVPR 2025.
 - **[27/Dec/2024]** [Arvix version](https://arxiv.org/abs/2412.19412) is released.
 - **[26/Dec/2024]** Release the code and checkpoint.
 
@@ -58,7 +60,7 @@ baselines and even surpass modality-specific methods.
 </p>
 <p align="center">
   <img src="assets/modality.png" alt="Figure 3" height="430">
-  
+
 </p>
 
 ## Our Framework
@@ -100,17 +102,21 @@ openxlab dataset download --dataset-repo lsxi7/MINIMA --source-path /README.md -
 And more details can be found
 in <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA/cli/main"><img src="https://img.shields.io/badge/OpenXLab-Download-blue" alt='data'></a>.
 
-## Weight Download
+## MINIMA Multi-Modal Data Engine
+
+See [Engine](./engine/README.md) for more details.
+
+## Weights Download
 
 * We provide our `minima_lightglue`,`minima_loftr`,`minima_roma`,`minima_eloftr` and `minima_xoftr` model weights
   in [Google Drive](https://drive.google.com/drive/folders/16kZfehtXeIu6fJjUoYDzYb-3FkZBpkNd?usp=sharing).
 * Also we provide github link for the
   weights: [minima_lightglue](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_lightglue.pth),
-  [minima_loftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_loftr.ckpt), 
-  [minima_roma](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_roma.pth), 
-  [minima_eloftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_eloftr.ckpt) and 
+  [minima_loftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_loftr.ckpt),
+  [minima_roma](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_roma.pth),
+  [minima_eloftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_eloftr.ckpt) and
   [minima_xoftr](https://github.com/LSXI7/storage/releases/download/MINIMA/minima_xoftr.ckpt).
-* Please download the weight files and put it in the `weights` folder.
+* Please download the weights files and put it in the `weights` folder.
 * Or you can directly run:
 
 ```bash
@@ -234,7 +240,7 @@ git submodule update --recursive --remote
 sed -i '1s/^/from typing import Tuple as tuple\n/' third_party/RoMa/romatch/models/model_zoo/__init__.py
 ```
 
-* Run demo code after downloading the [weights](#weight-download):
+* Run demo code after downloading the [weights](#weights-download):
 
 ```bash
 python demo.py --method sp_lg --fig1 demo/vis_test.png --fig2 demo/depth_test.png --save_dir ./demo
@@ -254,7 +260,7 @@ python test_relative_homo_depth.py    --method <method> <--ckpt model_path> <--s
 
 python test_relative_homo_event.py    --method <method> <--ckpt model_path> <--save_figs> <--save_dir save_dir>  # Event-RGB
 
-# choose_model: 0 for medical test, 1 for remote sensing test
+# --choose_model: 0 for medical test, 1 for remote sensing test
 python test_relative_homo_mmim.py     --method <method> <--ckpt model_path> --choose_model 0/1 <--save_figs> <--save_dir save_dir>
 ```
 
@@ -262,7 +268,7 @@ python test_relative_homo_mmim.py     --method <method> <--ckpt model_path> --ch
 
 ```bash
 python test_relative_pose_mega_1500_syn.py  --method <method> <--ckpt ckpt> --multi_model <modality> <--save_figs> <--save_dir save_dir>
-# modality: infrared/depth/event/normal/sketch/paint
+# --modality: Choose from [infrared, depth, event, normal, sketch, paint]
 ```
 
 ### Test on Origin MegaDepth-1500 Dataset
@@ -280,7 +286,7 @@ custom checkpoint using the `--ckpt` argument.
 - [x] Real Multimodal Evaluation Benchmark
 - [x] Synthetic Multimodal Evaluation Benchmark
 - [ ] Training Code
-- [ ] Our MINIMA Data Engine for Multimodal Data Generation
+- [x] Our MINIMA Data Engine for Multimodal Data Generation
 - [ ] More Modalities Addition
 
 ## Acknowledgement
