@@ -5,7 +5,7 @@ multi-modal transformations.
 Currently, the engine supports the following modalities:
 <div align="center">
 
-<img src="figs/example.png" width="800" alt="framework">
+<img src="figs/example.png" width="900" alt="framework">
 
 </div>
 
