@@ -10,3 +10,4 @@ src/utils/else_module
 !demo/vis_test.png
 !assets/modality.png
 !engine/figs/example.png
+!engine/tools/paint/paint_transformer/brush/*
