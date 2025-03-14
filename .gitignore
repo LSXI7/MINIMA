@@ -9,5 +9,5 @@ src/utils/else_module
 !demo/depth_test.png
 !demo/vis_test.png
 !assets/modality.png
-!engine/figs/example.png
-!engine/tools/paint/paint_transformer/brush/*
+!data_engine/figs/example.png
+!data_engine/tools/paint/paint_transformer/brush/*

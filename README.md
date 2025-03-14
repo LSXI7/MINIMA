@@ -34,7 +34,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 
 ## 📣 News
 
-- **[14/Mar/2025]** [MINIMA Data Engine](./engine/README.md) is released.
+- **[14/Mar/2025]** [MINIMA Data Engine](./data_engine/README.md) is released.
 - **[27/Feb/2025]** Our MINIMA is accepted to CVPR 2025.
 - **[27/Dec/2024]** [Arvix version](https://arxiv.org/abs/2412.19412) is released.
 - **[26/Dec/2024]** Release the code and checkpoint.
@@ -107,7 +107,7 @@ in <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA/cli/main"><img src="ht
 
 ## MINIMA Multi-Modal Data Engine
 
-See [Engine](./engine/README.md) for more details.
+See [Data Engine](./data_engine/README.md) for more details.
 
 ## Weights Download
 

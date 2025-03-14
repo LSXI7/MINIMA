@@ -23,16 +23,16 @@ pip install -r engine_extra_requirements.txt
 
 ## Checkpoints Preparation
 
-We recommend placing all checkpoints in the `engine/weights` directory.  
+We recommend placing all checkpoints in the `data_engine/weights` directory.  
 The `download_weights.sh` script can be used to download all the required weights and place them in the correct
 directory following the instructions below:
 
 ```bash
-cd engine
+cd data_engine
 bash download_weights.sh
 ```
 
-You can also download the weights manually and place them in the `engine/weights` directory.
+You can also download the weights manually and place them in the `data_engine/weights` directory.
 
 <p></p> <details> <summary><b> Weights Structure </b></summary>  
 
@@ -129,7 +129,7 @@ Please download [weights](https://drive.google.com/file/d/1NDD54BLligyr8tzo8QGI5
 To run the engine, you can use the following command:
 
 ```bash
-cd engine
+cd data_engine
 python modality_engine.py --modality <modality> --input_path <input_path> --output_dir <output_dir>
 # --modality: Choose from [infrared, depth, event, normal, sketch, paint]
 # --input_path: Supports both a single image or a directory that contains images
