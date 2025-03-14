@@ -21,7 +21,8 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 <a href="https://arxiv.org/abs/2412.19412"><img src="https://img.shields.io/badge/arXiv-2412.19412-b31b1b" alt='arxiv'></a>
 <a href="https://huggingface.co/spaces/lsxi77777/MINIMA"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Space-F0CD4B?labelColor=666EEE" alt='HuggingFace Space'></a>
 <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache--2.0-929292" alt='license'></a>
-<a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA"><img src="https://img.shields.io/badge/OpenXLab-MINIMA-blue" alt='data'></a>
+<a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA"><img src="https://img.shields.io/badge/OpenXLab-Dataset-blue" alt='data'></a>
+<a href="https://huggingface.co/datasets/lsxi77777/MegaDepth-Syn"><img src="https://img.shields.io/badge/%F0%9F%A4%97_Hugging_Face-Dataset-F0CD4B?labelColor=666EEE" alt='HuggingFace Space'></a>
 
 </div>
 
@@ -101,6 +102,8 @@ openxlab dataset download --dataset-repo lsxi7/MINIMA --source-path /README.md -
 
 And more details can be found
 in <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA/cli/main"><img src="https://img.shields.io/badge/OpenXLab-Download-blue" alt='data'></a>.
+
+* The MegaDepth-Syn Dataset is now uploaded to [Hugging Face](https://huggingface.co/datasets/lsxi77777/MegaDepth-Syn).
 
 ## MINIMA Multi-Modal Data Engine
 
