@@ -2,12 +2,13 @@
 
 <div align="center">
 
-[Xingyu Jiang](https://scholar.google.com/citations?user=h2W90MQAAAAJ&hl=en&oi=ao)<sup>1</sup>,
+
 [Jiangwei Ren](https://github.com/LSXI7)<sup>1</sup>,
+[Xingyu Jiang](https://scholar.google.com/citations?user=h2W90MQAAAAJ&hl=en&oi=ao)<sup>1†</sup>,
 [Zizhuo Li](https://scholar.google.com/citations?user=bxuEALEAAAAJ&hl=en&oi=ao)<sup>2</sup>,
 [Xin Zhou](https://lmd0311.github.io/)<sup>1</sup>,
 [Dingkang Liang](https://dk-liang.github.io/)<sup>1</sup>
-and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<sup>1†</sup>
+and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<sup>1</sup>
 
 <sup>1</sup> Huazhong University of Science & Technology, <sup>2</sup> Wuhan University.         
 (†) Corresponding author.
@@ -313,9 +314,9 @@ Additionally, we appreciate the support of [MegaDepth](https://www.cs.cornell.ed
 If you find our work useful in your research, please consider giving a star ⭐ and a citation
 
 ```bibtex
-@inproceedings{jiang2025minima,
+@inproceedings{ren2025minima,
   title={MINIMA: Modality Invariant Image Matching},
-  author={Jiang, Xingyu and Ren, Jiangwei and Li, Zizhuo and Zhou, Xin and Liang, Dingkang and Bai, Xiang},
+  author={Ren, Jiangwei and Jiang, Xingyu and Li, Zizhuo and Zhou, Xin and Liang, Dingkang and Bai, Xiang},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
   year={2025}
 }
