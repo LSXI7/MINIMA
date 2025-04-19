@@ -20,6 +20,7 @@ git submodule update --recursive --remote
 ```
 
 By default, all pretrained weights are expected to be stored in the `MINIMA/weights/` directory.
+All results will be saved in the `MINIMA/train_results/` directory.
 
 ---
 
@@ -67,7 +68,7 @@ ln -s  /path/to/MINIMA/data/megadepth/train/* ./third_party/glue_factory_minima/
 ln -s  /path/to/MINIMA/data/megadepth/train/ ./third_party/LoFTR_minima/data/megadepth/
 
 # RoMA
-ln -s  /path/to/MINIMA/data/megadepth/train/* ./third_party/roma_minima/data/megadepth/
+ln -s  /path/to/MINIMA/data/megadepth/train/* ./third_party/RoMa_minima/data/megadepth/
 ```
 
 ---

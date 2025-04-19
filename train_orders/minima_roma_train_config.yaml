@@ -8,8 +8,8 @@ MINIMA_ROMA:
     lr_scale: 0.1
     train_resolution: 'medium' # 560,560
     n_nodes: 1
-    n_gpus_per_node: 2
-    batch_size: 1
+    n_gpus_per_node: 4
+    batch_size: 3
     exp_name: 'minima_roma_outdoor'
 
   weight:
