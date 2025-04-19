@@ -1,23 +1,21 @@
 import argparse
+import cv2
 import json
 import logging
+import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+import numpy as np
 import os
 import os.path as osp
+import scipy.io as sio
 import time
 import warnings
 from collections import defaultdict, OrderedDict
 from pathlib import Path
-
-import cv2
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
-import numpy as np
-import scipy.io as sio
-from tqdm import tqdm
-
-from src.utils.load_model import load_model
+from load_model import load_model, choose_method_arguments, add_method_arguments
 from src.utils.metrics import error_auc
 from src.utils.plotting import dynamic_alpha, make_matching_figure2
+from tqdm import tqdm
 
 
 def make_matching_plot_fast(img1, img2, mkpts0, mkpts1, mkpts0_f, mkpts1_f, color, text, show_keypoints=True):
@@ -594,50 +592,21 @@ def test_relative_pose_vismmim(
 
 
 if __name__ == '__main__':
-    def add_common_arguments(parser):
-        parser.add_argument('--exp_name', type=str, default="VisMMIM")
-        parser.add_argument('--data_root_dir', type=str,
-                            default="./data/Multi-modality-image-matching-database-metrics-methods/")
-        parser.add_argument('--save_dir', type=str, default="./results_relative_mmim_homo/")
-        parser.add_argument('--e_name', type=str, default=None)
-        parser.add_argument('--ransac_thres', type=float, default=1.5)
-        parser.add_argument('--print_out', action='store_true')
-        parser.add_argument('--debug', action='store_true')
-        parser.add_argument('--save_figs', action='store_true')
-        parser.add_argument('--choose_model', type=int, default=0, choices=[0, 1], help='0:Medical,1:RemoteSensing')
-        parser.add_argument('--svg', action='store_true')
-
-
-    def add_method_arguments(parser, method):
-        if method == "xoftr":
-            parser.add_argument('--match_threshold', type=float, default=0.3)
-            parser.add_argument('--fine_threshold', type=float, default=0.1)
-            parser.add_argument('--ckpt', type=str, default="./weights/weights_xoftr_640.ckpt")
-
-        elif method == "loftr":
-            parser.add_argument('--ckpt', type=str,
-                                default="./weights/minima_loftr.ckpt")
-            parser.add_argument('--thr', type=float, default=0.2)
-        elif method == "sp_lg":
-            parser.add_argument('--ckpt', type=str,
-                                default="./weights/minima_lightglue.pth")
-        elif method == "roma":
-            parser.add_argument('--ckpt2', type=str,
-                                default="large")
-            parser.add_argument('--ckpt', type=str, default='./weights/minima_roma.pth')
-
-
-        else:
-            raise ValueError(f"Unknown method: {method}")
-
-        add_common_arguments(parser)
-
 
     parser = argparse.ArgumentParser(description='Benchmark Relative Pose')
+    choose_method_arguments(parser)
 
-    parser.add_argument('--method', type=str, required=True,
-                        choices=["xoftr", 'sp_lg', 'loftr', 'roma'],
-                        help="Select the method to use: xoftr, sp_lg, loftr, roma")
+    parser.add_argument('--exp_name', type=str, default="VisMMIM")
+    parser.add_argument('--data_root_dir', type=str,
+                        default="./data/Multi-modality-image-matching-database-metrics-methods/")
+    parser.add_argument('--save_dir', type=str, default="./results_relative_mmim_homo/")
+    parser.add_argument('--e_name', type=str, default=None)
+    parser.add_argument('--ransac_thres', type=float, default=1.5)
+    parser.add_argument('--print_out', action='store_true')
+    parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--save_figs', action='store_true')
+    parser.add_argument('--choose_model', type=int, default=0, choices=[0, 1], help='0:Medical,1:RemoteSensing')
+    parser.add_argument('--svg', action='store_true')
 
     args, remaining_args = parser.parse_known_args()
 

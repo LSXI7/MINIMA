@@ -1,0 +1,22 @@
+MINIMA_LOFTR:
+  dataset:
+#    modality: [ 'visible', 'infrared', 'depth', 'event', 'normal', 'sketch', 'paint' ]
+    modality: [ 'visible', 'infrared', 'depth', 'normal' ]
+#    modality: [ 'visible', 'infrared' ]
+
+  train:
+    lr_scale: 0.1
+    image_size: 640
+    n_nodes: 1
+    n_gpus_per_node: 2
+    torch_num_workers: 4
+    batch_size: 2
+    pin_memory: true
+    max_epochs: 30
+    save_top_k: 30
+
+  weight:
+    pre_trained: true
+    pre_trained_path: './weights/outdoor_ds.ckpt'
+    resume_from_checkpoint: false
+    resume_path: null

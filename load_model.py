@@ -6,9 +6,9 @@ from copy import deepcopy
 
 def load_roma(args, test_orginal_megadepth=False):
     import sys
-    sys.path.append("./third_party/RoMa/")
-    from third_party.RoMa.romatch import roma_outdoor
-    from third_party.RoMa.romatch import tiny_roma_v1_outdoor
+    sys.path.append("./third_party/RoMa_minima/")
+    from third_party.RoMa_minima.romatch import roma_outdoor
+    from third_party.RoMa_minima.romatch import tiny_roma_v1_outdoor
     if test_orginal_megadepth:
         from src.config.default_for_megadepth_dense import get_cfg_defaults
     else:
@@ -35,7 +35,7 @@ def load_roma(args, test_orginal_megadepth=False):
 
 
 def load_loftr(args, test_orginal_megadepth=False):
-    from third_party.LoFTR.src.loftr import LoFTR, default_cfg
+    from third_party.LoFTR_minima.src.loftr import LoFTR, default_cfg
     if test_orginal_megadepth:
         from src.config.default_for_megadepth_dense import get_cfg_defaults
     else:
@@ -162,3 +162,30 @@ def load_model(method, args, use_path=True, test_orginal_megadepth=False):
     else:
         matcher = eval(f"load_{method}")(args, test_orginal_megadepth=test_orginal_megadepth)
         return matcher.from_cv_imgs
+
+
+def choose_method_arguments(parser):
+    parser.add_argument('--method', type=str, required=True,
+                        choices=["xoftr", 'sp_lg', 'loftr', 'roma'],
+                        help="Select the method to use: xoftr, sp_lg, loftr, roma", )
+
+
+def add_method_arguments(parser, method):
+    if method == "xoftr":
+        parser.add_argument('--match_threshold', type=float, default=0.3)
+        parser.add_argument('--fine_threshold', type=float, default=0.1)
+        parser.add_argument('--ckpt', type=str, default="./weights/weights_xoftr_640.ckpt")
+
+    elif method == "loftr":
+        parser.add_argument('--ckpt', type=str,
+                            default="./weights/minima_loftr.ckpt")
+        parser.add_argument('--thr', type=float, default=0.2)
+    elif method == "sp_lg":
+        parser.add_argument('--ckpt', type=str,
+                            default="./weights/minima_lightglue.pth")
+    elif method == "roma":
+        parser.add_argument('--ckpt2', type=str,
+                            default="large")
+        parser.add_argument('--ckpt', type=str, default='./weights/minima_roma.pth')
+    else:
+        raise ValueError(f"Unknown method: {method}")

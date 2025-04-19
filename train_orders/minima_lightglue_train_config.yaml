@@ -1,0 +1,16 @@
+MINIMA_LIGHTGLUE:
+  dataset:
+    #    modality: [ 'visible', 'infrared', 'depth', 'event', 'normal', 'sketch', 'paint' ]
+    modality: [ 'visible', 'infrared', 'depth', 'normal' ]
+
+
+  train:
+    lr_scale: 1.0
+    experiment: minima_lightglue
+    # else config please change in MINIMA/third_party/glue_factory_minima/gluefactory/configs/superpoint+lightglue_megadepth.yaml
+    load_feature: false
+
+  weight:
+    pre_trained: true
+    pre_trained_path: './weights/superpoint_lightglue.pth'
+    resume_from_checkpoint: false # if true, load the model from the checkpoint in experiment folder

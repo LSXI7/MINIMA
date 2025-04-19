@@ -6,7 +6,8 @@ einops==0.3.0
 kornia==0.6.11
 loguru==0.5.3
 yacs>=0.1.8
-tqdm==4.65.0
+tqdm
+yq
 # autopep8
 # pylint
 # ipython

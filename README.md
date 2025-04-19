@@ -35,6 +35,7 @@ and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<su
 
 ## 📣 News
 
+- **[19/Apr/2025]** [MINIMA Training Code](./train_orders/README.md) is released.
 - **[14/Mar/2025]** [MINIMA Data Engine](./data_engine/README.md) is released.
 - **[27/Feb/2025]** Our MINIMA is accepted to CVPR 2025.
 - **[27/Dec/2024]** [Arvix version](https://arxiv.org/abs/2412.19412) is released.
@@ -213,7 +214,8 @@ data/
 │ ├── Multimodal_Image_Matching_Datasets/
 │ └── ...
 ├── megadepth/
-│ └── train/[modality]/Undistorted_SfM/
+│ ├── train/[modality]/Undistorted_SfM/
+│ └── test/Undistorted_SfM/   # MegaDepth-1500
 └── DIODE/
 │ └── val/
 └── DSEC/
@@ -284,12 +286,15 @@ python test_relative_pose_mega_1500.py  --method <method> <--ckpt model_path> <-
 Note: By default, the checkpoint is initialized from the MINIMA models in the `weights` folder, and you can specify a
 custom checkpoint using the `--ckpt` argument.
 
+# Training
+See [Training](./train_orders/README.md) for details.
+
 ## TODO List
 
 - [x] MD-Syn Full Dataset
 - [x] Real Multimodal Evaluation Benchmark
 - [x] Synthetic Multimodal Evaluation Benchmark
-- [ ] Training Code
+- [x] Training Code
 - [x] Our MINIMA Data Engine for Multimodal Data Generation
 - [ ] More Modalities Addition
 

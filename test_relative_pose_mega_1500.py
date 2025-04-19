@@ -1,19 +1,19 @@
 import argparse
 import json
 import logging
-import numpy as np
 import os
 import os.path as osp
 import time
 import warnings
 from collections import defaultdict, OrderedDict
 from pathlib import Path
-from tqdm import tqdm
 
-from src.utils.load_model import load_model
+import numpy as np
+from load_model import load_model, choose_method_arguments, add_method_arguments
 from src.utils.metrics import estimate_pose, relative_pose_error, error_auc, symmetric_epipolar_distance_numpy, \
     epidist_prec
 from src.utils.plotting import dynamic_alpha, error_colormap, make_matching_figure
+from tqdm import tqdm
 
 
 def load_vis_pairs_npz(npz_root, npz_list, data_root):
@@ -223,6 +223,7 @@ def eval_relapose(
             new_K1 = match_res['new_K1']
             mkpts0 = match_res['mkpts0']
             mkpts1 = match_res['mkpts1']
+            print("mkpts0", mkpts0.shape)
 
             # Calculate pose errors
             ret = estimate_pose(
@@ -416,46 +417,18 @@ def test_relative_pose_vis(
 
 
 if __name__ == '__main__':
-    def add_common_arguments(parser):
-        parser.add_argument('--exp_name', type=str, default="MegaDepth")
-        parser.add_argument('--data_root_dir', type=str, default="./data/megadepth/")
-        parser.add_argument('--save_dir', type=str, default="./results_relative_pose_megadepth/")
-        parser.add_argument('--e_name', type=str, default=None)
-        parser.add_argument('--ransac_thres', type=float, default=0.5)
-        parser.add_argument('--print_out', action='store_true')
-        parser.add_argument('--debug', action='store_true')
-        parser.add_argument('--save_figs', action='store_true')
-
-
-    def add_method_arguments(parser, method):
-        if method == "xoftr":
-            parser.add_argument('--match_threshold', type=float, default=0.3)
-            parser.add_argument('--fine_threshold', type=float, default=0.1)
-            parser.add_argument('--ckpt', type=str, default="./weights/weights_xoftr_640.ckpt")
-
-        elif method == "loftr":
-            parser.add_argument('--ckpt', type=str,
-                                default="./weights/minima_loftr.ckpt")
-            parser.add_argument('--thr', type=float, default=0.2)
-        elif method == "sp_lg":
-            parser.add_argument('--ckpt', type=str,
-                                default="./weights/minima_lightglue.pth")
-        elif method == "roma":
-            parser.add_argument('--ckpt2', type=str,
-                                default="large")
-            parser.add_argument('--ckpt', type=str, default='./weights/minima_roma.pth')
-
-        else:
-            raise ValueError(f"Unknown method: {method}")
-
-        add_common_arguments(parser)
-
 
     parser = argparse.ArgumentParser(description='Benchmark Relative Pose')
 
-    parser.add_argument('--method', type=str, required=True,
-                        choices=["xoftr", 'sp_lg', 'loftr', 'roma'],
-                        help="Select the method to use: xoftr, sp_lg, loftr, roma")
+    choose_method_arguments(parser)
+    parser.add_argument('--exp_name', type=str, default="MegaDepth")
+    parser.add_argument('--data_root_dir', type=str, default="./data/megadepth/")
+    parser.add_argument('--save_dir', type=str, default="./results_relative_pose_megadepth/")
+    parser.add_argument('--e_name', type=str, default=None)
+    parser.add_argument('--ransac_thres', type=float, default=0.5)
+    parser.add_argument('--print_out', action='store_true')
+    parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--save_figs', action='store_true')
 
     args, remaining_args = parser.parse_known_args()
 

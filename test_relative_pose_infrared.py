@@ -10,12 +10,11 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-from tqdm import tqdm
-
-from src.utils.load_model import load_model
+from load_model import load_model, choose_method_arguments, add_method_arguments
 from src.utils.metrics import estimate_pose, relative_pose_error, error_auc, symmetric_epipolar_distance_numpy, \
     epidist_prec
 from src.utils.plotting import dynamic_alpha, error_colormap, make_matching_figure
+from tqdm import tqdm
 
 
 def load_vis_tir_pairs_npz(npz_root, npz_list):
@@ -214,6 +213,8 @@ def eval_relapose(
             new_K1 = match_res['new_K1']
             mkpts0 = match_res['mkpts0']
             mkpts1 = match_res['mkpts1']
+            n = len(matches)
+            print(f"matches: {n}")
             # Calculate pose errors
             ret = estimate_pose(
                 mkpts0, mkpts1, new_K0, new_K1, thresh=ransac_thres
@@ -230,6 +231,7 @@ def eval_relapose(
                 statis['epi_errs'].append(epi_errs)
                 statis['epi_errs_no_inlier'].append(epi_errs_no_inlier)
                 statis['inliers'].append(np.array([]).astype(np.bool_))
+                statis['match_nums'].append(n)
             else:
                 R, t, inliers = ret
                 t_err, R_err = relative_pose_error(T_0to1, R, t)
@@ -240,6 +242,7 @@ def eval_relapose(
                 statis['R_errs'].append(R_err)
                 statis['t_errs'].append(t_err)
                 statis['inliers'].append(inliers.sum() / len(mkpts0))
+                statis['match_nums'].append(n)
                 if print_out:
                     logging.info(f"#M={len(matches)} R={R_err:.3f}, t={t_err:.3f}")
 
@@ -249,8 +252,8 @@ def eval_relapose(
                 fig_path = osp.join(scene_dir, f"{img0_name}_{img1_name}_{method}_after_ransac.jpg")
                 img0 = cv2.imread(im0)
                 img1 = cv2.imread(im1)
-                img0=cv2.cvtColor(img0, cv2.COLOR_BGR2RGB)
-                img1=cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
+                img0 = cv2.cvtColor(img0, cv2.COLOR_BGR2RGB)
+                img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2RGB)
                 save_matching_figure(path=fig_path,
                                      img0=img0,
                                      img1=img1,
@@ -428,47 +431,19 @@ def test_relative_pose_vistir(
 
 
 if __name__ == '__main__':
-    def add_common_arguments(parser):
-        parser.add_argument('--exp_name', type=str, default="VisTIR")
-        parser.add_argument('--data_root_dir', type=str, default="./data/METU_VisTIR/")
-        parser.add_argument('--save_dir', type=str, default="./infrared_results_relative_pose/")
-        parser.add_argument('--ransac_thres', type=float, default=1.5)
-        parser.add_argument('--e_name', type=str, default=None)
-        parser.add_argument('--print_out', action='store_true')
-        parser.add_argument('--debug', action='store_true')
-        parser.add_argument('--save_figs', action='store_true')
-        parser.add_argument('--svg', action='store_true')
-
-
-    def add_method_arguments(parser, method):
-        if method == "xoftr":
-            parser.add_argument('--match_threshold', type=float, default=0.3)
-            parser.add_argument('--fine_threshold', type=float, default=0.1)
-            parser.add_argument('--ckpt', type=str, default="./weights/weights_xoftr_640.ckpt")
-
-        elif method == "loftr":
-            parser.add_argument('--ckpt', type=str,
-                                default="./weights/minima_loftr.ckpt")
-            parser.add_argument('--thr', type=float, default=0.2)
-        elif method == "sp_lg":
-            parser.add_argument('--ckpt', type=str,
-                                default="./weights/minima_lightglue.pth")
-        elif method == "roma":
-            parser.add_argument('--ckpt2', type=str,
-                                default="large")
-            parser.add_argument('--ckpt', type=str, default='./weights/minima_roma.pth')
-
-        else:
-            raise ValueError(f"Unknown method: {method}")
-
-        add_common_arguments(parser)
-
 
     parser = argparse.ArgumentParser(description='Benchmark Relative Pose')
 
-    parser.add_argument('--method', type=str, required=True,
-                        choices=["xoftr", 'sp_lg', 'loftr', 'roma'],
-                        help="Select the method to use: xoftr, sp_lg, loftr, roma")
+    choose_method_arguments(parser)
+    parser.add_argument('--exp_name', type=str, default="VisTIR")
+    parser.add_argument('--data_root_dir', type=str, default="./data/METU_VisTIR/")
+    parser.add_argument('--save_dir', type=str, default="./results_relative_pose_infrared/")
+    parser.add_argument('--ransac_thres', type=float, default=1.5)
+    parser.add_argument('--e_name', type=str, default=None)
+    parser.add_argument('--print_out', action='store_true')
+    parser.add_argument('--debug', action='store_true')
+    parser.add_argument('--save_figs', action='store_true')
+    parser.add_argument('--svg', action='store_true')
 
     args, remaining_args = parser.parse_known_args()
 
