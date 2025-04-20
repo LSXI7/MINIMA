@@ -448,7 +448,7 @@ if __name__ == '__main__':
     choose_method_arguments(parser)
     parser.add_argument('--exp_name', type=str, default="VisSYN")
     parser.add_argument('--data_root_dir', type=str, default="./data/METU_VisSYN/")
-    parser.add_argument('--save_dir', type=str, default="./results_relative_pose_1500_syn/")
+    parser.add_argument('--save_dir', type=str, default="./results_relative_megadepth_syn_pose/")
     parser.add_argument('--e_name', type=str, default=None)
     parser.add_argument('--ransac_thres', type=float, default=0.5)
     parser.add_argument('--print_out', action='store_true')

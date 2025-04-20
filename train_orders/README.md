@@ -39,6 +39,13 @@ You can download the additional modalities from either of the following platform
 > and depth maps. You will also need additional **index files and labels** for training, which are provided separately
 > for each method below.
 
+The original MegaDepth dataset includes `.JPG` and `.png` files.
+To ensure consistency, all images were renamed or converted to `.jpg` format using the script below:
+
+```bash
+python train_orders/megadepth_rename.py
+```
+
 ### Data Structure
 
 We recommend organizing both the original **MegaDepth** dataset and the multi-modal **MegaDepth-Syn** under
