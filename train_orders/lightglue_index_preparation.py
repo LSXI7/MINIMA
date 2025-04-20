@@ -33,7 +33,7 @@ def index_preparation(directory, txt_path):
         # data_dict['pair_infos'] = np.asarray(data_dict['pair_infos'], dtype=object)
 
         new_file = os.path.join(
-            '/data/xyjiang/image_style_transfer/Matching/glue-factory/data/megadepth/scene_info_no_sfm/', filename)
+            './third_party/glue_factory_minima/data/megadepth/scene_info_no_sfm/', filename)
         np.savez(new_file, **data_dict)
         print("Saved to ", new_file)
 
