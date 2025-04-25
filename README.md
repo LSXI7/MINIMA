@@ -243,7 +243,7 @@ conda activate minima
 ```bash
 git submodule update --init --recursive
 git submodule update --recursive --remote
-sed -i '1s/^/from typing import Tuple as tuple\n/' third_party/RoMa/romatch/models/model_zoo/__init__.py
+sed -i '1s/^/from typing import Tuple as tuple\n/' third_party/RoMa_minima/romatch/models/model_zoo/__init__.py
 ```
 
 * Run demo code after downloading the [weights](#weights-download):
