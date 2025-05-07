@@ -32,9 +32,10 @@ cd data_engine
 bash download_weights.sh
 ```
 
-You can also download the weights manually and place them in the `data_engine/weights` directory.
+You can also download the weights manually and place them in the `data_engine/weights` directory.    
+The weight files should maintain the exact folder structure shown below for the program to locate them correctly:
 
-<p></p> <details> <summary><b> Weights Structure </b></summary>  
+<p></p> <details> <summary><b> Weight Files Structure </b></summary>  
 
 The directory structure should be like this:
 
@@ -59,6 +60,7 @@ weights/
 </details>
 <p></p>
 
+### Per-Modality Weight Download Instructions
 
 <p></p> <details> <summary><b> Infrared Generation </b></summary>  
 
@@ -66,9 +68,12 @@ The infrared generation code is based on [scepter](https://github.com/modelscope
 
 Please
 download the weights
-from [styleBooth weights](https://huggingface.co/scepter-studio/stylebooth/tree/main/models), [clip-vit-large-patch14](https://huggingface.co/openai/clip-vit-large-patch14).
+from [styleBooth weights](https://huggingface.co/scepter-studio/stylebooth/tree/main/models), [clip-vit-large-patch14](https://huggingface.co/openai/clip-vit-large-patch14).      
 And our style tuner is available for download
-at [step-210000](https://drive.google.com/drive/folders/1bXe9MGJN_qvBnwONZ9uVImSJj-visH0m?usp=sharing)
+from    
+The weight files
+structure[Google Drive](https://drive.google.com/drive/folders/1bXe9MGJN_qvBnwONZ9uVImSJj-visH0m?usp=sharing)
+or [Hugging Face](https://huggingface.co/lsxi77777/MINIMA/tree/main).
 
 > **NOTE:** Generation a 1024x1024 image requires a GPU with about 12GB of memory.
 </details>
