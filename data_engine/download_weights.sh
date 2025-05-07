@@ -20,7 +20,8 @@ declare -A MODEL_URLS
 MODEL_URLS=(
     ["stylebooth"]="https://huggingface.co/scepter-studio/stylebooth/resolve/main/models/stylebooth-tb-5000-0.bin?download=true"
     ["clip-vit-large-patch14"]="https://huggingface.co/openai/clip-vit-large-patch14"
-    ["step-210000"]="https://drive.google.com/drive/folders/1bXe9MGJN_qvBnwONZ9uVImSJj-visH0m?usp=sharing"
+#    ["step-210000"]="https://drive.google.com/drive/folders/1bXe9MGJN_qvBnwONZ9uVImSJj-visH0m?usp=sharing"
+    ["step-210000"]="lsxi77777/MINIMA@MINIMA_engine_models:step-210000"
     ["depth_anything_v2"]="https://huggingface.co/depth-anything/Depth-Anything-V2-Large/resolve/main/depth_anything_v2_vitl.pth?download=true"
     ["dsine"]="https://drive.google.com/uc?id=1Wyiei4a-lVM6izjTNoBLIC5-Rcy4jnaC"
     ["paint_transformer"]="https://drive.google.com/uc?id=1NDD54BLligyr8tzo8QGI5eihZisXK1nq"
@@ -66,6 +67,17 @@ download_model() {
             huggingface-cli download "$REPO_NAME" --local-dir "$TARGET_PATH" --local-dir-use-symlinks False
 #            echo "Hugging Face download not supported."
         fi
+    elif [[ ${MODEL_URLS[$model]} == *"@"* ]]; then
+        REPO_PATH=$(echo "${MODEL_URLS[$model]}" | cut -d'@' -f1)
+        BRANCH_AND_SUBDIR=$(echo "${MODEL_URLS[$model]}" | cut -d'@' -f2)
+        BRANCH=$(echo "$BRANCH_AND_SUBDIR" | cut -d':' -f1)
+        SUBDIR=$(echo "$BRANCH_AND_SUBDIR" | cut -d':' -f2)
+
+        huggingface-cli download $REPO_PATH \
+            --revision $BRANCH \
+            --include "$SUBDIR/*" \
+            --local-dir "$TARGET_PATH" \
+            --local-dir-use-symlinks False
     else
         # Otherwise, use wget
         wget -O "$TARGET_PATH" "${MODEL_URLS[$model]}"
