@@ -6,8 +6,8 @@
 [Jiangwei Ren](https://github.com/LSXI7)<sup>1</sup>,
 [Xingyu Jiang](https://scholar.google.com/citations?user=h2W90MQAAAAJ&hl=en&oi=ao)<sup>1†</sup>,
 [Zizhuo Li](https://scholar.google.com/citations?user=bxuEALEAAAAJ&hl=en&oi=ao)<sup>2</sup>,
-[Dingkang Liang](https://dk-liang.github.io/)<sup>1</sup>
-[Xin Zhou](https://lmd0311.github.io/)<sup>1</sup>,
+[Dingkang Liang](https://dk-liang.github.io/)<sup>1</sup>,
+[Xin Zhou](https://lmd0311.github.io/)<sup>1</sup>
 and [Xiang Bai](https://scholar.google.com/citations?user=UeltiQ4AAAAJ&hl=en)<sup>1</sup>
 
 <sup>1</sup> Huazhong University of Science & Technology, <sup>2</sup> Wuhan University.         
@@ -287,6 +287,7 @@ Note: By default, the checkpoint is initialized from the MINIMA models in the `w
 custom checkpoint using the `--ckpt` argument.
 
 # Training
+
 See [Training](./train_orders/README.md) for details.
 
 ## TODO List
@@ -326,3 +327,12 @@ If you find our work useful in your research, please consider giving a star ⭐ 
   year={2025}
 }
 ```
+
+## License
+
+This repository is under the [Apache-2.0 license](./LICENSE).
+`minima_lightglue` uses `SuperPoint` from as a feature extractor. `SuperPoint` follows a different, restrictive license
+for academic or non-commercial use only. See
+the [license here](https://github.com/magicleap/SuperPointPretrainedNetwork/blob/master/LICENSE) and
+its [inference file](./third_party/lightglue/superpoint.py) for details.    
+Please review and comply with its license if you intend to use this component.
