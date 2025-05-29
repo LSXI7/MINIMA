@@ -334,5 +334,5 @@ This repository is under the [Apache-2.0 license](./LICENSE).
 `minima_lightglue` uses `SuperPoint` from as a feature extractor. `SuperPoint` follows a different, restrictive license
 for academic or non-commercial use only. See
 the [license here](https://github.com/magicleap/SuperPointPretrainedNetwork/blob/master/LICENSE) and
-its [inference file](./third_party/LightGlue/superpoint.py) for details.    
+its [inference file](https://github.com/cvg/LightGlue/blob/main/lightglue/superpoint.py) for details.    
 Please review and comply with its license if you intend to use this component.
