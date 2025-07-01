@@ -109,6 +109,13 @@ in <a href="https://openxlab.org.cn/datasets/lsxi7/MINIMA/cli/main"><img src="ht
 
 ## MINIMA Multi-Modal Data Engine
 
+
+<div align="center">
+
+<img src="assets/infrared.png" width="800" alt="demo">
+
+</div>
+
 See [Data Engine](./data_engine/README.md) for more details.
 
 ## Weights Download
