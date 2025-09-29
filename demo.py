@@ -14,7 +14,7 @@ from kornia.geometry.transform import warp_perspective
 from pathlib import Path
 from tqdm import tqdm
 
-from src.utils.load_model import load_model
+from load_model import load_model
 from src.utils.metrics import estimate_pose, relative_pose_error, error_auc, symmetric_epipolar_distance_numpy, \
     epidist_prec
 from src.utils.plotting import dynamic_alpha, error_colormap, make_matching_figure

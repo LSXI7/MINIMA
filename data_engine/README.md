@@ -32,7 +32,11 @@ cd data_engine
 bash download_weights.sh
 ```
 
-You can also download the weights manually and place them in the `data_engine/weights` directory.    
+You can also download the weights manually and place them in the `data_engine/weights` directory.
+
+> Note: If you encounter infrared generation errors, please refer to [#25](https://github.com/LSXI7/MINIMA/issues/25).
+> Deleting the `.cache_tuner` folder might help.
+
 The weight files should maintain the exact folder structure shown below for the program to locate them correctly:
 
 <p></p> <details> <summary><b> Weight Files Structure </b></summary>  
