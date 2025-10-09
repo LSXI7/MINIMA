@@ -35,7 +35,8 @@ bash download_weights.sh
 You can also download the weights manually and place them in the `data_engine/weights` directory.
 
 > Note: If you encounter infrared generation errors, please refer to [#25](https://github.com/LSXI7/MINIMA/issues/25).
-> Deleting the `.cache_tuner` folder might help.
+> Deleting the `.cache_tuner` folder might help.     
+> Installing xformers can help reduce GPU memory usage when generating infrared images.
 
 The weight files should maintain the exact folder structure shown below for the program to locate them correctly:
 
